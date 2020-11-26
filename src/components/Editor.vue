@@ -11,13 +11,44 @@
         :onChange="onChange"
         name="editor"
         :editorProps="{$blockScrolling: true}"
+        :defaultValue="defecto"
+
     />
 
   </div>
+
 </template>
 
 <script>
-
+var primerAutomata='{\n' +
+    '  "ini": "Q0",\n' +
+    '  "estados": [\n' +
+    '    {\n' +
+    '      "nombre": "Q0",\n' +
+    '      "transiciones": [\n' +
+    '        {\n' +
+    '          "lee": [\n' +
+    '            "a",\n' +
+    '            "b"\n' +
+    '          ],\n' +
+    '          "escribe": "a",\n' +
+    '          "mueve": "D",\n' +
+    '          "cambia": "Q0"\n' +
+    '        },\n' +
+    '        {\n' +
+    '          "lee": [\n' +
+    '            " "\n' +
+    '          ],\n' +
+    '          "escribe": " ",\n' +
+    '          "mueve": "D",\n' +
+    '          "cambia": "DONE"\n' +
+    '        }\n' +
+    '      ]\n' +
+    '    },\n' +
+    '    {}\n' +
+    '  ],\n' +
+    '  "acept": "done"\n' +
+    '}'
 import {Ace as AceEditor} from 'vue2-brace-editor';
 
 import 'brace/mode/javascript';
@@ -25,7 +56,8 @@ import 'brace/theme/monokai';
 
 export default {
   name: 'Editor',
-  data: {
+  data(){
+    return{
     automata: {
       ini: 'Q0',
       estados: [
@@ -44,9 +76,13 @@ export default {
           }]
         }, {}
       ],
-      acept: 'done'
+      acept: 'done',
 
+
+    },
+    defecto:primerAutomata
     }
+
   },
   components: {
     AceEditor,
@@ -54,7 +90,9 @@ export default {
   $el: 'root',
   methods: {
     onChange(newValue) {
-      console.log('change', newValue);
+      //console.log(newValue)
+      this.automata=JSON.parse(newValue);
+      this.$emit('automata',this.automata)
     }
   }
 }

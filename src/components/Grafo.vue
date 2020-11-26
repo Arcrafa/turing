@@ -2,19 +2,32 @@
   <div>
     <h1>grafo</h1>
     <div id="mynetwork"></div>
+    {{automata}}
   </div>
 </template>
 
 <script>
 export default {
   name: "Grafo",
-  data: {},
+  props:{
+    automata:Object
+  },
 
-
+  data(){
+    return{
+      estados:[],
+      transiciones:[]
+    }
+  },
   mounted() {
     this.grafo()
   },
   methods: {
+    idEstado:function (nombre){
+
+      console.log(this.estados.find(estado => estado.nombre == nombre));
+
+    },
     grafo: function (e) {
       // create an array with nodes
       var nodes = new vis.DataSet([
@@ -43,6 +56,31 @@ export default {
       var network = new vis.Network(container, data, options);
       console.log(network)
     }
+  },
+  updated() {
+    var indice={
+
+    }
+
+    var i=1
+    this.automata.estados.forEach(estado=>{
+
+      this.estados.push({id: i, label:estado.nombre })
+      i++
+
+    })
+    i=1
+    this.automata.estados.forEach(estado=>{
+      i++
+      estado.transiciones.forEach(transicion=>{
+
+        var l=transicion.lee.join(',')+'->'+ transicion.escribe+','+transicion.mueve
+        console.log(this.idEstado(estado.nombre))
+        this.transiciones.push({from: this.idEstado(estado.nombre), to: this.idEstado(transicion.cambia), arrows: "to", label: l, font: {align: "bottom"}})
+      })
+
+    })
+    console.log(this.automata)
   }
 }
 </script>

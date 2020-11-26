@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <Editor></Editor>
-    <Grafo></Grafo>
+    <Editor @automata="getautomata"></Editor>
+    <Grafo :automata="automata"></Grafo>
   </div>
 </template>
 
@@ -11,10 +11,21 @@ import Editor from "@/components/Editor";
 import Grafo from "@/components/Grafo";
 export default {
   name: 'App',
+  data(){
+    return {
+      automata: null
+    }
+
+  },
   components: {
     //HelloWorld
     Editor,
     Grafo
+  },
+  methods:{
+    getautomata(automata){
+        this.automata=automata
+    }
   }
 }
 </script>
