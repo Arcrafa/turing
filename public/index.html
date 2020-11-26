@@ -6,12 +6,57 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <title><%= htmlWebpackPlugin.options.title %></title>
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
   </head>
-  <body>
-    <noscript>
-      <strong>We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-    </noscript>
-    <div id="app"></div>
+
+  <body class="cyan lighten-5">
+  <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+
+  <div id="vocabulario" class="">
+      <nav class=" nav-extended cyan darken-2">
+          <div class="nav-wrapper ">
+              <a href="index.html">
+                  <img src="default.png" style="margin-top: 20px;margin-left: 20px;">
+                  <h1 class="brand-logo center"> Validador de claves</h1>
+              </a>
+          </div>
+      </nav>
+      <br>
+
+
+      <div class="container">
+          <div class="row ">
+              <div id="app"></div>
+          </div>
+      </div>
+      <footer class="page-footer  cyan darken-2">
+          <div class="container">
+              <div class="row">
+                  <div class="col l6 s12">
+                      <h5 class="white-text">Universidad Del Magdalena</h5>
+                      <h6 class="grey-text text-lighten-4">Compiladores e interpretes - Daniel conzales</h6>
+                  </div>
+                  <div class="col l4 offset-l2 s12">
+                      <h5 class="white-text">Miembros</h5>
+                      <ul>
+                          <li><h6 class="grey-text text-lighten-3" href="#!">Ana Herrera Orozco</h6></li>
+                          <li><h6 class="grey-text text-lighten-3" href="#!">Rafael Maldonado</h6></li>
+                          <li><h6 class="grey-text text-lighten-3" href="#!">Luis Quintero</h6></li>
+
+                      </ul>
+                  </div>
+              </div>
+          </div>
+          <div class="footer-copyright">
+              <div class="container">
+                  © 2020 BY arc
+                  <a class="grey-text text-lighten-4 right" href="#!">Ingenieria de sistemas</a>
+              </div>
+          </div>
+      </footer>
+  </div>
+
     <!-- built files will be auto injected -->
   </body>
 </html>
