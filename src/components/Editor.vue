@@ -41,11 +41,14 @@ var primerAutomata='{\n' +
     '          ],\n' +
     '          "escribe": " ",\n' +
     '          "mueve": "D",\n' +
-    '          "cambia": "DONE"\n' +
+    '          "cambia": "done"\n' +
     '        }\n' +
     '      ]\n' +
     '    },\n' +
-    '    {}\n' +
+    '    {' +
+    '      "nombre":\"done\",\n' +
+    '      "transiciones": []\n' +
+    '    }\n' +
     '  ],\n' +
     '  "acept": "done"\n' +
     '}'
@@ -72,9 +75,12 @@ export default {
             lee: [' '],
             escribe: ' ',
             mueve: 'D',
-            cambia: 'DONE'
+            cambia: 'done'
           }]
-        }, {}
+        }, {
+        nombre:'done',
+          transiciones: []
+        }
       ],
       acept: 'done',
 

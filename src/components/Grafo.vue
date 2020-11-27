@@ -23,11 +23,7 @@ export default {
     this.grafo()
   },
   methods: {
-    idEstado:function (nombre){
 
-      console.log(this.estados.find(estado => estado.nombre == nombre));
-
-    },
     grafo: function (e) {
       // create an array with nodes
       var nodes = new vis.DataSet([
@@ -54,14 +50,12 @@ export default {
 
       // initialize your network!
       var network = new vis.Network(container, data, options);
-      console.log(network)
     }
   },
   updated() {
-    var indice={
 
-    }
-
+    this.estados=[]
+    this.transiciones=[]
     var i=1
     this.automata.estados.forEach(estado=>{
 
@@ -69,18 +63,47 @@ export default {
       i++
 
     })
-    i=1
+
+
     this.automata.estados.forEach(estado=>{
-      i++
+
+      if (estado.nombre!=this.automata.accept) {
+
       estado.transiciones.forEach(transicion=>{
 
-        var l=transicion.lee.join(',')+'->'+ transicion.escribe+','+transicion.mueve
-        console.log(this.idEstado(estado.nombre))
-        this.transiciones.push({from: this.idEstado(estado.nombre), to: this.idEstado(transicion.cambia), arrows: "to", label: l, font: {align: "bottom"}})
+
+          var l = transicion.lee.join(',') + '->' + transicion.escribe + ',' + transicion.mueve
+
+          this.transiciones.push({
+            from: this.estados.find((e) => e.label ==estado.nombre).id,
+            to: this.estados.find((e) => e.label == transicion.cambia).id,
+            arrows: "to",
+            label: l,
+            font: {align: "bottom"}
+          })
+
       })
 
+        }
+
     })
-    console.log(this.automata)
+    // create an array with nodes
+    var nodes = new vis.DataSet(this.estados);
+
+    // create an array with edges
+    var edges = new vis.DataSet(this.transiciones);
+    // create a network
+      var container = document.getElementById('mynetwork');
+
+      // provide the data in the vis format
+      var data = {
+        nodes: nodes,
+        edges: edges
+      };
+      var options = {};
+
+      // initialize your network!
+      var network = new vis.Network(container, data, options);
   }
 }
 </script>
