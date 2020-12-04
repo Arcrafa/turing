@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>grafo</h1>
     <div id="mynetwork"></div>
     {{automata}}
   </div>

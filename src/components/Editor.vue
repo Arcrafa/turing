@@ -21,7 +21,7 @@
 
 <script>
 var primerAutomata='{\n' +
-    '  "ini": "Q0",\n' +
+    '  "init": "Q0",\n' +
     '  "estados": [\n' +
     '    {\n' +
     '      "nombre": "Q0",\n' +
@@ -62,7 +62,7 @@ export default {
   data(){
     return{
     automata: {
-      ini: 'Q0',
+      init: 'Q0',
       estados: [
         {
           nombre: 'Q0',
@@ -100,6 +100,9 @@ export default {
       this.automata=JSON.parse(newValue);
       this.$emit('automata',this.automata)
     }
+  },
+  mounted() {
+    this.$emit('automata',this.automata)
   }
 }
 </script>
