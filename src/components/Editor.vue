@@ -1,17 +1,20 @@
 <template>
 
   <div>
-    <AceEditor
-        :fontSize="14"
-        :showPrintMargin="true"
-        :showGutter="true"
-        :highlightActiveLine="true"
-        mode="json"
-        theme="monokai"
-        :onChange="onChange"
-        name="editor"
-        :editorProps="{$blockScrolling: true}"
-        :defaultValue="defecto"
+    <h4>Estructura json </h4>
+    <AceEditor class="col s3"
+               :fontSize="14"
+               :showPrintMargin="true"
+               :showGutter="true"
+               :highlightActiveLine="true"
+               mode="json"
+               theme="monokai"
+               :onChange="onChange"
+               name="editor"
+               height="400px"
+               width="100%"
+               :editorProps="{$blockScrolling: true}"
+               :defaultValue="defecto"
 
     />
 
@@ -20,7 +23,7 @@
 </template>
 
 <script>
-var primerAutomata='{\n' +
+var primerAutomata = '{\n' +
     '  "init": "Q0",\n' +
     '  "estados": [\n' +
     '    {\n' +
@@ -59,34 +62,34 @@ import 'brace/theme/monokai';
 
 export default {
   name: 'Editor',
-  data(){
-    return{
-    automata: {
-      init: 'Q0',
-      estados: [
-        {
-          nombre: 'Q0',
-          transiciones: [{
-            lee: ['a', 'b'],
-            escribe: 'a',
-            mueve: 'D',
-            cambia: 'Q0'
+  data() {
+    return {
+      automata: {
+        init: 'Q0',
+        estados: [
+          {
+            nombre: 'Q0',
+            transiciones: [{
+              lee: ['a', 'b'],
+              escribe: 'a',
+              mueve: 'D',
+              cambia: 'Q0'
+            }, {
+              lee: [' '],
+              escribe: ' ',
+              mueve: 'D',
+              cambia: 'done'
+            }]
           }, {
-            lee: [' '],
-            escribe: ' ',
-            mueve: 'D',
-            cambia: 'done'
-          }]
-        }, {
-        nombre:'done',
-          transiciones: []
-        }
-      ],
-      acept: 'done',
+            nombre: 'done',
+            transiciones: []
+          }
+        ],
+        acept: 'done',
 
 
-    },
-    defecto:primerAutomata
+      },
+      defecto: primerAutomata
     }
 
   },
@@ -97,12 +100,12 @@ export default {
   methods: {
     onChange(newValue) {
       //console.log(newValue)
-      this.automata=JSON.parse(newValue);
-      this.$emit('automata',this.automata)
+      this.automata = JSON.parse(newValue);
+      this.$emit('automata', this.automata)
     }
   },
-  mounted() {
-    this.$emit('automata',this.automata)
+  beforeMount() {
+    this.$emit('automata', this.automata)
   }
 }
 </script>

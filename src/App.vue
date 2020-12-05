@@ -1,15 +1,32 @@
 <template>
-  <div id="app" class="row">
-    <Editor @automata="getautomata" class="col s6"></Editor>
-    <Grafo :automata="automata" class="col s6"></Grafo>
+  <div>
+    <div id="app" class="row container">
+      <Editor @automata="getautomata" class="col s6"></Editor>
+      <Grafo :automata="automata" :actual="estado_actual" class="col s6"></Grafo>
 
-
-    <div class="col s2">
-      <button class="btn waves-effect waves-light" type="submit" name="action" @click="evaluar">Submit
-        <i class="material-icons right">skip_next</i>
-      </button>
     </div>
-    <div class="col s10">
+
+    <div class="container">
+      <form class="col s10">
+        <div class="row">
+          <h5>ingrese los simbolos de la cinta</h5>
+
+          <div class="input-field col s12">
+            <input id="textarea1" class="materialize-textarea" v-model="cinta_text"  >
+            <button class="btn waves-effect waves-light" type="submit" name="action" @click="genCinta">cargar cinta
+
+            </button>
+          </div>
+          <div class="col s2">
+            <button class="btn waves-effect waves-light" type="submit" name="action" @click="evaluar">evaluar
+              <i class="material-icons right">skip_next</i>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col s12">
 
       <table class="centered">
         <thead>
@@ -22,8 +39,6 @@
           >
             {{ celda.simbolo }}
           </th>
-
-
         </tr>
         </thead>
       </table>
@@ -42,45 +57,10 @@ export default {
   name: 'App',
   data() {
     return {
+      cinta_text:'',
       automata: null,
-      cinta: [{
-        simbolo: 'a',
-        actual: true
-      }, {
-        simbolo: 'b',
-        actual: false
-      }, {
-        simbolo: 'b',
-        actual: false
-      }, {
-        simbolo: 'b',
-        actual: false
-      }, {
-        simbolo: 'b',
-        actual: false
-      }, {
-        simbolo: 'b',
-        actual: false
-      }, {
-        simbolo: 'b',
-        actual: false
-      }, {
-        simbolo: ' ',
-        actual: false
-      }, {
-        simbolo: ' ',
-        actual: false
-      }, {
-        simbolo: ' ',
-        actual: false
-      }, {
-        simbolo: ' ',
-        actual: false
-      }
-
-      ],
-      estado_actual: ''
-
+      estado_actual: '',
+      cinta:[]
     }
 
   },
@@ -93,8 +73,13 @@ export default {
   methods: {
     getautomata(automata) {
       this.automata = automata
+      this.estado_actual = this.automata.init
     },
-    evaluar() {
+    evaluar(event) {
+
+      if (event) {
+        event.preventDefault()
+      }
       if (this.estado_actual == '') this.estado_actual = this.automata.init
 
 
@@ -130,6 +115,21 @@ export default {
       console.log(this.cinta)
 
 
+    },
+    genCinta (event){
+
+      if (event) {
+        event.preventDefault()
+      }
+      this.cinta_text+="   "
+      var simbolos=this.cinta_text.split("")
+
+      this.cinta=[]
+      simbolos.forEach(sim=>{
+        this.cinta.push({simbolo:sim,actual:false})
+      })
+      this.cinta[0].actual=true
+      console.log(simbolos)
     }
   },
 
@@ -139,7 +139,6 @@ export default {
       // `this` points to the vm instance
       return this.cinta.find(celda => celda.actual).simbolo
     }
-
   }
 }
 </script>
